@@ -9,31 +9,32 @@ let service1 = prompt("Какой дополнительный тип услуг
 let servicePrice1 = +prompt("Сколько это будет стоить?");
 let service2 = prompt("Какой дополнительный тип услуги нужен?");
 let servicePrice2 = +prompt("Сколько это будет стоить?");
-let rollback = 10;
 
 //переменные функций
+let rollback = 10;
 let allServicePrices;
 let fullPrice;  
+let servicePercentPrice;
+
+const getAllServicePrices = function() {                             //fuction expression
+    return  servicePrice1 + servicePrice2;
+};
 
 const showTypeOf = function(variable) {
     console.log(variable, typeof variable);
-}
-
-function getAllServicePrices() {                             //fuction expression
-    allServicePrices =  servicePrice1 + servicePrice2;
-}
+};
 
 const getFullPrice = function() {                          //function declaration
-    fullPrice = screenPrice + allServicePrices;
-}
-
-const getTitle = function(title) {
-    return title[0].toUpperCase() + title.slice(1);
-}
+    return screenPrice + allServicePrices;
+};
 
 const getServicePercentPrices = function() {
     return fullPrice - (fullPrice * (rollback/100));
-}
+};
+
+const getTitle = function(title) {
+    return title.trim()[0].toUpperCase() + title.trim().substr(1).toLowerCase();
+};
 
 const getRollbackMessage = function(price) {
     if (price >= 30000) {
@@ -47,18 +48,23 @@ const getRollbackMessage = function(price) {
     }
 };
 
+allServicePrices = getAllServicePrices();
+fullPrice = getFullPrice();
+servicePercentPrice = getServicePercentPrices();
+title = getTitle();
 
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 
-getAllServicePrices();
-getFullPrice();
-getTitle(title);
-getServicePercentPrices();
-getRollbackMessage();
+//логи
+console.log(getRollbackMessage(fullPrice));
+console.log(typeof title);
+console.log(typeof screenPrice);
+console.log(typeof adaptive);
 
-//логи функций
-console.log(screens);
+console.log(screens.length);
+console.log(servicePercentPrice);
+
 console.log("Стоимость вёрстки экранов " + screenPrice + " рублей/ долларов/ гривен/ юаней");
 
